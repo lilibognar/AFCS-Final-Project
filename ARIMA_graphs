@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Aggregated daily sales
+daily_sales = train_data_clean.groupby('date_numeric')['sales'].sum()
+plt.figure(figsize=(12, 6))
+plt.plot(daily_sales.index, daily_sales.values, label='Total Sales', color='blue')
+
+plt.title('Daily Sales Trends', fontsize=16)
+plt.xlabel('Date', fontsize=12)
+plt.ylabel('Total Sales', fontsize=12)
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# True vs Predicted Daily Sales
+plt.figure(figsize=(12, 6))
+plt.plot(y_true, label='Actual Sales', marker='o', linestyle='-', color='blue')
+plt.plot(y_pred, label='Forecasted Sales', marker='o', linestyle='--', color='orange')
+plt.title('Actual vs Forecasted Daily Sales', fontsize=16)
+plt.xlabel('Day', fontsize=12)
+plt.ylabel('Total Sales', fontsize=12)
+plt.legend()
+plt.grid(True)
+plt.show()
+
+errors = y_true - y_pred
+
+plt.figure(figsize=(10, 5))
+sns.histplot(errors, kde=True, color='purple', bins=20)
+plt.title('Distribution of Forecast Errors', fontsize=16)
+plt.xlabel('Error (Actual - Predicted)', fontsize=12)
+plt.ylabel('Frequency', fontsize=12)
+plt.grid(True)
+plt.show()
